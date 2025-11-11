@@ -1,19 +1,19 @@
 # This is the root module that can be used for local development
 provider "aws" {
-  region = var.aws_region
+  region              = var.aws_region
   allowed_account_ids = [var.aws_account_id]
 }
 
 # Local variables for tagging
 locals {
   common_tags = {
-    Environment   = var.environment
-    Project       = "Multi-Account-Arch"
-    ManagedBy     = "Terraform"
-    Owner         = "Lasyaolipi"
-    Repository    = "https://github.com/${var.github_owner}/${var.github_repo}"
+    Environment = var.environment
+    Project     = "Multi-Account-Arch"
+    ManagedBy   = "Terraform"
+    Owner       = "Lasyaolipi"
+    Repository  = "https://github.com/${var.github_owner}/${var.github_repo}"
   }
-  
+
   name_prefix = "${var.environment}-${var.project_name}"
 }
 
@@ -54,9 +54,9 @@ resource "aws_s3_bucket_public_access_block" "terraform_state" {
 
 # DynamoDB for Terraform locks
 resource "aws_dynamodb_table" "terraform_locks" {
-  name           = "${local.name_prefix}-terraform-locks"
-  billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "LockID"
+  name         = "${local.name_prefix}-terraform-locks"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID"
 
   attribute {
     name = "LockID"

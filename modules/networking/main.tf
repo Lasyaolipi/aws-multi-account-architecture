@@ -70,7 +70,7 @@ resource "aws_route_table_association" "public" {
 
 # NAT Gateway
 resource "aws_eip" "nat" {
-  count = length(var.azs)
+  count  = length(var.azs)
   domain = "vpc"
 
   tags = merge(var.common_tags, {

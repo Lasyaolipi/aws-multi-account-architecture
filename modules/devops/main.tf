@@ -51,7 +51,7 @@ resource "aws_codebuild_project" "terraform" {
       name  = "ENVIRONMENT"
       value = var.environment
     }
-    
+
     environment_variable {
       name  = "AWS_REGION"
       value = var.aws_region
@@ -112,7 +112,7 @@ resource "aws_iam_role_policy" "codebuild_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect = "Allow"
+        Effect   = "Allow"
         Resource = ["*"]
         Action = [
           "s3:*",
