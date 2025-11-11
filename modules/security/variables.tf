@@ -21,11 +21,13 @@ variable "aws_account_id" {
 variable "enable_guardduty" {
   description = "Enable AWS GuardDuty"
   type        = bool
+  default     = false  # Default to false due to subscription requirements
 }
 
 variable "enable_security_hub" {
   description = "Enable AWS Security Hub"
   type        = bool
+  default     = false  # Default to false due to subscription requirements
 }
 
 variable "common_tags" {
