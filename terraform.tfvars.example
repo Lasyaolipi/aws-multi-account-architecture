@@ -1,0 +1,18 @@
+# Copy this file to terraform.tfvars and update the values
+
+aws_region     = "ap-south-1"
+aws_account_id = "391313099163"
+environment    = "production"
+project_name   = "multi-account-arch"
+vpc_cidr       = "10.0.0.0/16"
+
+availability_zones = [
+  "ap-south-1a",
+  "ap-south-1b"
+]
+
+enable_guardduty   = true
+enable_security_hub = true
+
+github_owner = "Lasyaolipi"
+github_repo  = "aws-multi-account-architecture"
