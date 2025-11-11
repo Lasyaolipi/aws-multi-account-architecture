@@ -77,10 +77,10 @@ locals {
 module "iam" {
   source = "../../modules/iam"
 
-  environment = var.environment
+  environment  = var.environment
   project_name = var.project_name
-  aws_region  = var.aws_region
-  common_tags = local.common_tags
+  aws_region   = var.aws_region
+  common_tags  = local.common_tags
 }
 
 # Networking Module
@@ -111,12 +111,12 @@ module "security" {
 module "devops" {
   source = "../../modules/devops"
 
-  environment       = var.environment
-  project_name      = var.project_name
-  aws_region        = var.aws_region
-  vpc_id            = module.networking.vpc_id
+  environment        = var.environment
+  project_name       = var.project_name
+  aws_region         = var.aws_region
+  vpc_id             = module.networking.vpc_id
   private_subnet_ids = module.networking.private_subnet_ids
-  common_tags       = local.common_tags
+  common_tags        = local.common_tags
 }
 
 # EKS Module

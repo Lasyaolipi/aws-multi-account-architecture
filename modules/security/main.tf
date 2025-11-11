@@ -47,7 +47,7 @@ resource "aws_config_configuration_recorder" "main" {
 resource "aws_config_delivery_channel" "main" {
   name           = "${var.environment}-${var.project_name}-config-delivery"
   s3_bucket_name = aws_s3_bucket.config_bucket.bucket
-  s3_key_prefix  = "config"  # Add key prefix
+  s3_key_prefix  = "config" # Add key prefix
 
   depends_on = [aws_s3_bucket_policy.config_bucket]
 }
@@ -120,7 +120,7 @@ data "aws_iam_policy_document" "config_bucket" {
       type        = "Service"
       identifiers = ["config.amazonaws.com"]
     }
-    actions = ["s3:PutObject"]
+    actions   = ["s3:PutObject"]
     resources = ["${aws_s3_bucket.config_bucket.arn}/config/*"]
 
     condition {
