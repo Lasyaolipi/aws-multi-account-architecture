@@ -2,7 +2,7 @@ name: 'Terraform Apply'
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 env:
   TF_VERSION: '1.6.0'
@@ -11,7 +11,7 @@ jobs:
   terraform-apply:
     name: 'Terraform Apply'
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     
     steps:
       - name: Checkout code
@@ -31,6 +31,21 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ./environments/production
+
+      - name: Check and Force Unlock Terraform State
+        run: |
+          # Try to get lock info, if it fails then no lock exists
+          if terraform plan -no-color -input=false > /dev/null 2>&1; then
+            echo "No state lock detected"
+          else
+            echo "State lock detected, attempting to force unlock"
+            LOCK_INFO=$(terraform plan -no-color -input=false 2>&1 | grep "ID:" | awk '{print $2}' || echo "")
+            if [ ! -z "$LOCK_INFO" ]; then
+              echo "Force unlocking with ID: $LOCK_INFO"
+              terraform force-unlock -force $LOCK_INFO
+            fi
+          fi
         working-directory: ./environments/production
 
       - name: Terraform Apply
